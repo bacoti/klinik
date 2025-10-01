@@ -1,0 +1,124 @@
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { cn } from '@/lib/utils';
+
+interface SidebarItem {
+  icon: React.ReactNode;
+  label: string;
+  href: string;
+  badge?: string | number;
+  active?: boolean;
+}
+
+interface SidebarProps {
+  items: SidebarItem[];
+  isCollapsed?: boolean;
+  onToggle?: () => void;
+  userRole?: string;
+  userName?: string;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({
+  items,
+  isCollapsed = false,
+  onToggle,
+  userRole = 'User',
+  userName = 'John Doe'
+}) => {
+  const location = useLocation();
+
+  return (
+    <div className={cn(
+      "bg-white border-r border-gray-200 h-screen transition-all duration-300 ease-in-out",
+      isCollapsed ? "w-16" : "w-64"
+    )}>
+      {/* Header */}
+      <div className="p-4 border-b border-gray-200">
+        <div className="flex items-center justify-between">
+          {!isCollapsed && (
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-gray-900">Klinik</h2>
+                <p className="text-xs text-gray-500">{userRole}</p>
+              </div>
+            </div>
+          )}
+          <button
+            onClick={onToggle}
+            className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            <svg 
+              className={cn("w-4 h-4 text-gray-600 transition-transform", isCollapsed && "rotate-180")} 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <nav className="p-4 space-y-2">
+        {items.map((item, index) => {
+          const isActive = location.pathname === item.href;
+          
+          return (
+            <Link
+              key={index}
+              to={item.href}
+              className={cn(
+                "flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-200",
+                "hover:bg-gray-50 hover:translate-x-1",
+                isActive 
+                  ? "bg-blue-50 text-blue-700 border-r-2 border-blue-600" 
+                  : "text-gray-700 hover:text-gray-900"
+              )}
+            >
+              <div className={cn(
+                "flex-shrink-0 w-5 h-5",
+                isActive ? "text-blue-600" : "text-gray-500"
+              )}>
+                {item.icon}
+              </div>
+              
+              {!isCollapsed && (
+                <>
+                  <span className="font-medium">{item.label}</span>
+                  {item.badge && (
+                    <span className="ml-auto bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">
+                      {item.badge}
+                    </span>
+                  )}
+                </>
+              )}
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* User Profile */}
+      {!isCollapsed && (
+        <div className="absolute bottom-4 left-4 right-4">
+          <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+            <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+              <span className="text-white font-medium text-sm">
+                {userName.split(' ').map(n => n[0]).join('')}
+              </span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-gray-900 truncate">{userName}</p>
+              <p className="text-xs text-gray-500">{userRole}</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
