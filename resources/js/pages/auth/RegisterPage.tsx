@@ -39,6 +39,7 @@ const RegisterPage: React.FC = () => {
         email: "",
         password: "",
         password_confirmation: "",
+        role: "nurse", // Default role
         phone: "",
         address: "",
         gender: "" as "male" | "female" | "",
@@ -120,11 +121,18 @@ const RegisterPage: React.FC = () => {
 
         try {
             const submitData = {
-                ...formData,
+                name: formData.name,
+                email: formData.email,
+                password: formData.password,
+                password_confirmation: formData.password_confirmation,
+                role: formData.role,
+                phone: formData.phone,
+                address: formData.address,
                 gender:
                     formData.gender === ""
                         ? undefined
                         : (formData.gender as "male" | "female"),
+                birth_date: formData.birth_date,
             };
             await register(submitData);
             success("Pendaftaran berhasil! Selamat datang di Sistem Klinik");

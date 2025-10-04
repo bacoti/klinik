@@ -53,12 +53,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/change-password', [AuthController::class, 'changePassword']);
 
     // Dashboard routes - Role specific
-    Route::get('/dashboard', [DashboardController::class, 'index']);
-    Route::get('/dashboard/stats', [DashboardController::class, 'stats']);
     Route::get('/dashboard/admin', [DashboardController::class, 'adminStats'])->middleware('role:admin');
     Route::get('/dashboard/doctor', [DashboardController::class, 'doctorStats'])->middleware('role:doctor');
     Route::get('/dashboard/nurse', [DashboardController::class, 'nurseStats'])->middleware('role:nurse');
     Route::get('/dashboard/pharmacist', [DashboardController::class, 'pharmacistStats'])->middleware('role:pharmacist');
+    Route::get('/dashboard/activities', [DashboardController::class, 'recentActivities']);
+    Route::get('/dashboard/appointments', [DashboardController::class, 'upcomingAppointments']);
 
     // Patient routes
     Route::apiResource('patients', PatientController::class);
@@ -134,7 +134,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/users/{user}', [AuthController::class, 'updateUser']);
         Route::delete('/users/{user}', [AuthController::class, 'deleteUser']);
         Route::get('/roles', [AuthController::class, 'roles']);
-        
+
         // System reports
         Route::get('/reports/system-overview', [DashboardController::class, 'systemOverview']);
         Route::get('/reports/user-activity', [DashboardController::class, 'userActivity']);

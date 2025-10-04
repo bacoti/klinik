@@ -242,6 +242,7 @@ export interface RegisterRequest {
     email: string;
     password: string;
     password_confirmation: string;
+    role: string;
     phone?: string;
     address?: string;
     gender?: "male" | "female";

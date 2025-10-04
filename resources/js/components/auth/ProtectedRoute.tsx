@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 
 interface ProtectedRouteProps {
     children: React.ReactNode;
@@ -33,7 +33,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     }
 
     // Check role permissions if roles are specified
-    if (roles.length > 0 && !roles.includes(user.role as unknown as string)) {
+    if (roles.length > 0 && !roles.includes(user.role.name)) {
         // Show fallback or access denied message
         if (fallback) {
             return <>{fallback}</>;

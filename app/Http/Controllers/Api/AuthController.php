@@ -18,6 +18,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|string|in:admin,doctor,nurse,pharmacist,patient',
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string',
             'gender' => 'nullable|in:male,female',
@@ -32,20 +33,20 @@ class AuthController extends Controller
             ], 422);
         }
 
-        // Default role is patient for self-registration
-        $patientRole = Role::where('name', 'patient')->first();
-        if (!$patientRole) {
+        // Get the role by name
+        $role = Role::where('name', $request->role)->first();
+        if (!$role) {
             return response()->json([
                 'success' => false,
-                'message' => 'Patient role not found. Please contact administrator.'
-            ], 500);
+                'message' => 'Invalid role selected. Please contact administrator.'
+            ], 400);
         }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' => $patientRole->id,
+            'role_id' => $role->id,
             'phone' => $request->phone,
             'address' => $request->address,
             'gender' => $request->gender,
