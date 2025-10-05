@@ -101,9 +101,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
             if (response.data.success && response.data.data) {
                 const { user: userData, token } = response.data.data;
 
-                console.log('Login user data received:', userData);
-                console.log('User role:', userData.role);
-                
+                console.log("Login user data received:", userData);
+                console.log("User role:", userData.role);
+
                 setUser(userData);
                 localStorage.setItem("auth_token", token);
                 localStorage.setItem("user", JSON.stringify(userData));

@@ -3,8 +3,11 @@ import { useAuth } from "../hooks/useAuth";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
 import PatientManagement from "@/pages/admin/PatientManagement";
 import AppointmentManagement from "@/pages/admin/AppointmentManagement";
+import StaffManagement from "@/pages/admin/StaffManagement";
 import DoctorDashboard from "@/pages/doctor/DoctorDashboard";
 import NurseDashboard from "@/pages/nurse/NurseDashboard";
+import PatientRegistration from "@/pages/nurse/PatientRegistration";
+import VitalSigns from "@/pages/nurse/VitalSigns";
 import PharmacistDashboard from "@/pages/pharmacist/PharmacistDashboard";
 import ApiTest from "@/components/test/ApiTest";
 
@@ -15,11 +18,11 @@ const DashboardRoutes = () => {
     // Get default route for user role
     const getDefaultRoute = () => {
         if (!user) return "/admin/dashboard";
-        
-        console.log('DashboardRoutes - Current user:', user);
-        console.log('DashboardRoutes - User role:', user.role);
-        console.log('DashboardRoutes - User role name:', user.role.name);
-        
+
+        console.log("DashboardRoutes - Current user:", user);
+        console.log("DashboardRoutes - User role:", user.role);
+        console.log("DashboardRoutes - User role name:", user.role.name);
+
         switch (user.role.name) {
             case "admin":
                 return "/admin/dashboard";
@@ -30,7 +33,9 @@ const DashboardRoutes = () => {
             case "pharmacist":
                 return "/pharmacist/dashboard";
             default:
-                console.log('DashboardRoutes - Unknown role, defaulting to admin');
+                console.log(
+                    "DashboardRoutes - Unknown role, defaulting to admin"
+                );
                 return "/admin/dashboard";
         }
     };
@@ -56,15 +61,19 @@ const DashboardRoutes = () => {
         <Routes>
             {/* Test Route */}
             <Route path="/test-api" element={<ApiTest />} />
-            
+
+            {/* General Management Routes - Accessible by all authenticated users */}
+            <Route path="/patients" element={<PatientManagement />} />
+            <Route path="/appointments" element={<AppointmentManagement />} />
+
             {/* Admin Dashboard Routes */}
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/patients" element={<PatientManagement />} />
-            <Route path="/admin/appointments" element={<AppointmentManagement />} />
             <Route
-                path="/admin/staff"
-                element={<div className="p-6">Staff Management Page</div>}
+                path="/admin/appointments"
+                element={<AppointmentManagement />}
             />
+            <Route path="/admin/staff" element={<StaffManagement />} />
             <Route
                 path="/admin/reports"
                 element={<div className="p-6">Reports & Analytics Page</div>}
@@ -76,17 +85,14 @@ const DashboardRoutes = () => {
 
             {/* Doctor Dashboard Routes */}
             <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
+            <Route path="/doctor/patients" element={<PatientManagement />} />
             <Route
                 path="/doctor/appointments"
-                element={<div className="p-6">Doctor Appointments Page</div>}
+                element={<AppointmentManagement />}
             />
             <Route
                 path="/doctor/queue"
                 element={<div className="p-6">Doctor Queue Page</div>}
-            />
-            <Route
-                path="/doctor/patients"
-                element={<div className="p-6">Doctor Patients Page</div>}
             />
             <Route
                 path="/doctor/records"
@@ -99,33 +105,44 @@ const DashboardRoutes = () => {
 
             {/* Nurse Dashboard Routes */}
             <Route path="/nurse/dashboard" element={<NurseDashboard />} />
+            <Route path="/nurse/patients" element={<PatientManagement />} />
+            <Route
+                path="/nurse/appointments"
+                element={<AppointmentManagement />}
+            />
             <Route
                 path="/nurse/registration"
-                element={<div className="p-6">Patient Registration Page</div>}
+                element={<PatientRegistration />}
             />
             <Route
                 path="/nurse/vitals"
-                element={<div className="p-6">Vital Signs Page</div>}
+                element={<VitalSigns />}
+            />
+            <Route
+                path="/nurse/queue"
+                element={<div className="p-6">Patient Queue Management Page</div>}
             />
             <Route
                 path="/nurse/screening"
-                element={<div className="p-6">Patient Screening Page</div>}
+                element={<div className="p-6">Patient Screening Assessment Page</div>}
             />
             <Route
-                path="/nurse/triage"
-                element={<div className="p-6">Patient Triage Page</div>}
-            />
-            <Route
-                path="/nurse/medication"
-                element={
-                    <div className="p-6">Medication Administration Page</div>
-                }
+                path="/nurse/notes"
+                element={<div className="p-6">Nursing Notes Documentation Page</div>}
             />
 
             {/* Pharmacist Dashboard Routes */}
             <Route
                 path="/pharmacist/dashboard"
                 element={<PharmacistDashboard />}
+            />
+            <Route
+                path="/pharmacist/patients"
+                element={<PatientManagement />}
+            />
+            <Route
+                path="/pharmacist/appointments"
+                element={<AppointmentManagement />}
             />
             <Route
                 path="/pharmacist/prescriptions"

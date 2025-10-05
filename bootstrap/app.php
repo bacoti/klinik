@@ -14,8 +14,13 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
+            'checkRole' => \App\Http\Middleware\CheckRole::class,
         ]);
-        
+
+        $middleware->web(append: [
+            \App\Http\Middleware\HandleInertiaRequests::class,
+        ]);
+
         // Add CORS middleware for API
         $middleware->api(append: [
             \Illuminate\Http\Middleware\HandleCors::class,
