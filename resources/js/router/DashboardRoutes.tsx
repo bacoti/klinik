@@ -5,10 +5,22 @@ import PatientManagement from "@/pages/admin/PatientManagement";
 import AppointmentManagement from "@/pages/admin/AppointmentManagement";
 import StaffManagement from "@/pages/admin/StaffManagement";
 import DoctorDashboard from "@/pages/doctor/DoctorDashboard";
+import DoctorQueue from "@/pages/doctor/DoctorQueue";
+import MedicalRecords from "@/pages/doctor/MedicalRecords";
+import DoctorPrescriptions from "@/pages/doctor/DoctorPrescriptions";
+import MyPatients from "@/pages/doctor/MyPatients";
 import NurseDashboard from "@/pages/nurse/NurseDashboard";
 import PatientRegistration from "@/pages/nurse/PatientRegistration";
 import VitalSigns from "@/pages/nurse/VitalSigns";
+import PatientQueue from "@/pages/nurse/PatientQueue";
+import PatientScreening from "@/pages/nurse/PatientScreening";
+import NursingNotes from "@/pages/nurse/NursingNotes";
 import PharmacistDashboard from "@/pages/pharmacist/PharmacistDashboard";
+import PharmacistPrescriptions from "@/pages/pharmacist/PharmacistPrescriptions";
+import MedicineInventory from "@/pages/pharmacist/MedicineInventory";
+import DispensingLog from "@/pages/pharmacist/DispensingLog";
+import StockManagement from "@/pages/pharmacist/StockManagement";
+import SalesReport from "@/pages/pharmacist/SalesReport";
 import ApiTest from "@/components/test/ApiTest";
 
 const DashboardRoutes = () => {
@@ -85,22 +97,22 @@ const DashboardRoutes = () => {
 
             {/* Doctor Dashboard Routes */}
             <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
-            <Route path="/doctor/patients" element={<PatientManagement />} />
+            <Route path="/doctor/patients" element={<MyPatients />} />
             <Route
                 path="/doctor/appointments"
                 element={<AppointmentManagement />}
             />
             <Route
                 path="/doctor/queue"
-                element={<div className="p-6">Doctor Queue Page</div>}
+                element={<DoctorQueue />}
             />
             <Route
                 path="/doctor/records"
-                element={<div className="p-6">Medical Records Page</div>}
+                element={<MedicalRecords />}
             />
             <Route
                 path="/doctor/prescriptions"
-                element={<div className="p-6">Doctor Prescriptions Page</div>}
+                element={<DoctorPrescriptions />}
             />
 
             {/* Nurse Dashboard Routes */}
@@ -114,21 +126,18 @@ const DashboardRoutes = () => {
                 path="/nurse/registration"
                 element={<PatientRegistration />}
             />
-            <Route
-                path="/nurse/vitals"
-                element={<VitalSigns />}
-            />
+            <Route path="/nurse/vitals" element={<VitalSigns />} />
             <Route
                 path="/nurse/queue"
-                element={<div className="p-6">Patient Queue Management Page</div>}
+                element={<PatientQueue />}
             />
             <Route
                 path="/nurse/screening"
-                element={<div className="p-6">Patient Screening Assessment Page</div>}
+                element={<PatientScreening />}
             />
             <Route
                 path="/nurse/notes"
-                element={<div className="p-6">Nursing Notes Documentation Page</div>}
+                element={<NursingNotes />}
             />
 
             {/* Pharmacist Dashboard Routes */}
@@ -146,25 +155,23 @@ const DashboardRoutes = () => {
             />
             <Route
                 path="/pharmacist/prescriptions"
-                element={
-                    <div className="p-6">Pharmacist Prescriptions Page</div>
-                }
+                element={<PharmacistPrescriptions />}
             />
             <Route
                 path="/pharmacist/inventory"
-                element={<div className="p-6">Medicine Inventory Page</div>}
+                element={<MedicineInventory />}
             />
             <Route
                 path="/pharmacist/dispensing"
-                element={<div className="p-6">Dispensing Log Page</div>}
+                element={<DispensingLog />}
             />
             <Route
                 path="/pharmacist/stock"
-                element={<div className="p-6">Stock Management Page</div>}
+                element={<StockManagement />}
             />
             <Route
                 path="/pharmacist/reports"
-                element={<div className="p-6">Sales Report Page</div>}
+                element={<SalesReport />}
             />
 
             {/* Catch all - redirect to user's default dashboard */}

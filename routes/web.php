@@ -46,6 +46,76 @@ Route::get('/nurse/vitals-dev', function () {
 Route::prefix('test')->group(function () {
     Route::get('/nurse/vitals', [NurseController::class, 'vitals'])->name('test.nurse.vitals');
     Route::get('/nurse/dashboard', [NurseController::class, 'dashboard'])->name('test.nurse.dashboard');
+    Route::get('/nurse/queue', [NurseController::class, 'queue'])->name('test.nurse.queue');
+    Route::get('/nurse/screening', [NurseController::class, 'screening'])->name('test.nurse.screening');
+    Route::get('/nurse/notes', [NurseController::class, 'notes'])->name('test.nurse.notes');
+    Route::get('/test/pharmacist/inventory', function () {
+    return Inertia::render('Test', [
+        'targetRoute' => '/pharmacist/inventory',
+        'title' => 'Medicine Inventory Management',
+        'description' => 'Test page for Medicine Inventory system'
+    ]);
+});
+
+Route::get('/test/pharmacist/prescriptions', function () {
+        return view('welcome');
+    })->name('test.pharmacist.prescriptions');
+
+Route::get('/test/pharmacist/dispensing', function () {
+    return Inertia::render('Test', [
+        'targetRoute' => '/pharmacist/dispensing',
+        'title' => 'Dispensing Log',
+        'description' => 'Test page for Pharmacist Dispensing Log system'
+    ]);
+})->name('test.pharmacist.dispensing');
+
+Route::get('/test/pharmacist/stock', function () {
+    return Inertia::render('Test', [
+        'targetRoute' => '/pharmacist/stock',
+        'title' => 'Stock Management',
+        'description' => 'Test page for Pharmacist Stock Management system'
+    ]);
+})->name('test.pharmacist.stock');
+
+Route::get('/test/pharmacist/reports', function () {
+    return Inertia::render('Test', [
+        'targetRoute' => '/pharmacist/reports',
+        'title' => 'Sales Report',
+        'description' => 'Test page for Pharmacist Sales Report system'
+    ]);
+})->name('test.pharmacist.reports');
+
+Route::get('/test/doctor/queue', function () {
+    return Inertia::render('Test', [
+        'targetRoute' => '/doctor/queue',
+        'title' => 'Doctor Queue',
+        'description' => 'Test page for Doctor Patient Queue Management system'
+    ]);
+})->name('test.doctor.queue');
+
+Route::get('/test/doctor/records', function () {
+    return Inertia::render('Test', [
+        'targetRoute' => '/doctor/records',
+        'title' => 'Medical Records',
+        'description' => 'Test page for Doctor Medical Records Management system'
+    ]);
+})->name('test.doctor.records');
+
+Route::get('/test/doctor/prescriptions', function () {
+    return Inertia::render('Test', [
+        'targetRoute' => '/doctor/prescriptions',
+        'title' => 'Doctor Prescriptions',
+        'description' => 'Test page for Doctor Prescriptions Management system'
+    ]);
+})->name('test.doctor.prescriptions');
+
+Route::get('/test/doctor/patients', function () {
+    return Inertia::render('Test', [
+        'targetRoute' => '/doctor/patients',
+        'title' => 'My Patients',
+        'description' => 'Test page for Doctor My Patients Management system'
+    ]);
+})->name('test.doctor.patients');
 });
 
 // Protected routes with role-based access

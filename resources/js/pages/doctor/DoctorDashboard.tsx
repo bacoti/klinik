@@ -1,4 +1,5 @@
 import React from "react";
+import Layout from "../../layouts/Layout";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { StatCard } from "@/components/ui/StatCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -65,7 +66,8 @@ const DoctorDashboard: React.FC = () => {
     };
 
     return (
-        <DashboardLayout sidebarItems={sidebarItems} title="Doctor Dashboard">
+        <Layout>
+            <DashboardLayout sidebarItems={sidebarItems} title="Doctor Dashboard">
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <StatCard
@@ -321,7 +323,8 @@ const DoctorDashboard: React.FC = () => {
                     </CardContent>
                 </Card>
             </div>
-        </DashboardLayout>
+            </DashboardLayout>
+        </Layout>
     );
 };
 
